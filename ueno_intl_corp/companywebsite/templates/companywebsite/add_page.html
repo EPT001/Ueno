@@ -1,0 +1,43 @@
+{% extends 'companywebsite/base.html' %}
+{% load static %}
+
+{% block title %}
+    Add a New Page - {{ category.name }} - UENO INTERNATIONAL CORPORATION
+{% endblock %}
+
+{% block content %}
+    <h1>Add a New Page to the "{{ category.name }}" Category</h1>
+
+    <div>
+        <p>Use the form below to create a new page for the "{{ category.name }}" category.</p>
+
+        <form id="page_form" method="post" action="/companywebsite/category/{{ category.slug }}/add_page/">
+            {% csrf_token %}
+
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            <div>
+                {% for field in form.visible_fields %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                    {{ field }}
+                    <small>{{ field.help_text }}</small><br>
+                    {% if field.errors %}
+                        <div style="color: red;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            </div>
+
+            <input type="submit" name="submit" value="Create Page">
+        </form>
+    </div>
+
+    <div>
+        <a href="{% url 'companywebsite:show_category' category.slug %}">Back to "{{ category.name }}" Category</a><br />
+        <a href="{% url 'companywebsite:index' %}">Back to Home</a>
+    </div>
+{% endblock %}

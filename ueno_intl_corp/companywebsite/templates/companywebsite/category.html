@@ -1,0 +1,46 @@
+{% extends 'companywebsite/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if category %}
+        {{ category.name }} - UENO INTERNATIONAL CORPORATION
+    {% else %}
+        Unknown Category - UENO INTERNATIONAL CORPORATION
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to UENO INTERNATIONAL CORPORATION</h1>
+
+    <div>
+        Bridging the Gap between Trading, Real Estate, and You <br />
+        <strong>{{ boldmessage }}</strong>
+    </div>
+
+    <div>
+        {% if category %}
+            <h2>{{ category.name }}</h2>
+            {% if pages %}
+                <ul>
+                    {% for page in pages %}
+                        <li><a href="{{ page.url }}" target="_blank">{{ page.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>No pages currently in this category.</strong>
+            {% endif %}
+            <!-- Add Page link only visible if category exists -->
+            <a href="{% url 'companywebsite:add_page' category.slug %}">Add Page</a> <br />
+        {% else %}
+            <h2>Category Not Found</h2>
+            <p>The specified category does not exist. Please check the URL or go back.</p>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'companywebsite:about' %}">About</a><br />
+        <img src="{% static 'images/ueno_logo.jpg' %}" alt="UENO Logo" />
+    </div>
+{% endblock %}
+
+

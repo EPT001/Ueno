@@ -1,0 +1,42 @@
+{% extends 'companywebsite/base.html' %}
+{% load static %}
+
+{% block title %}
+    Add a New Category - UENO INTERNATIONAL CORPORATION
+{% endblock %}
+
+{% block content %}
+    <h1>Add a New Category</h1>
+
+    <div>
+        <p>Use the form below to create a new category.</p>
+        
+        <form id="category_form" method="post" action="{% url 'companywebsite:add_category' %}">
+            {% csrf_token %}
+
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            <div>
+                {% for field in form.visible_fields %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                    {{ field }}
+                    <small>{{ field.help_text }}</small><br>
+                    {% if field.errors %}
+                        <div style="color: red;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            </div>
+
+            <input type="submit" name="submit" value="Create Category">
+        </form>
+    </div>
+
+    <div>
+        <a href="{% url 'companywebsite:index' %}">Back to Home</a>
+    </div>
+{% endblock %}

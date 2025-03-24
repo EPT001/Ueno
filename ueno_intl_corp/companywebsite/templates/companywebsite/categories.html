@@ -1,0 +1,11 @@
+<ul>
+    {% for c in categories %}
+        {% if c == current_category %}
+            <li><strong>{{ c.name }}</strong></li>
+        {% else %}
+            <li><a href="{% url 'companywebsite:show_category' c.slug %}">{{ c.name }}</a></li>
+        {% endif %}
+    {% empty %}
+        <li><strong>There are no categories present.</strong></li>
+    {% endfor %}
+</ul>

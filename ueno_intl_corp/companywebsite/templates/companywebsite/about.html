@@ -1,0 +1,12 @@
+{% extends 'companywebsite/base.html' %}
+{% load static %}
+
+{% block title %}
+    About UENO INTERNATIONAL CORPORATION
+{% endblock %}
+
+{% block content %}
+    <h1>{{ message }}</h1>
+    <p>Learn more about our company and what we do.</p>
+    <a href="{% url 'companywebsite:index' %}">Back to Home</a>
+{% endblock %}

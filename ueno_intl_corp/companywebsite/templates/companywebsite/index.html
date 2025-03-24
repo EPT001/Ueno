@@ -1,0 +1,35 @@
+{% extends 'companywebsite/base.html' %}
+{% load static %}
+
+{% block title %}
+    UENO INTERNATIONAL CORPORATION
+{% endblock %}
+
+{% block content %}
+    <h1>WELCOME TO UENO INTERNATIONAL CORPORATION</h1>
+
+    <div>
+        Bridging the Gap between Trading, Real Estate, and You <br />
+        <strong>{{ boldmessage }}</strong>
+    </div>
+
+    <div>
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{% url 'companywebsite:show_category' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No categories are currently available.</strong>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'companywebsite:add_category' %}">Add a Category</a>
+        <a href="{% url 'companywebsite:about' %}">About</a><br />
+        <img src="{% static 'images/ueno_logo.jpg' %}" alt="UENO Logo" />
+    </div>
+{% endblock %}
+
+
